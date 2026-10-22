@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja"><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" name="viewport"/><title>ひらがなあそび</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f9f6ef;color:#263c3a;font-family:'UD デジタル 教科書体 NP-R','Yu Gothic',sans-serif}button{font:inherit;cursor:pointer;border:2px solid #cbdad4;border-radius:16px;background:white;color:#263c3a;padding:14px 22px;min-height:52px}button:hover{background:#edf5f0}button:focus-visible{outline:4px solid #e1a631;outline-offset:3px}button.on,.primary{background:#246f62;color:white;border-color:#246f62}header{max-width:1100px;margin:auto;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:20px}h1{font-size:25px;margin:0}small{display:block;color:#61756d;margin-top:6px}main{max-width:1000px;margin:auto;padding:0 24px 24px}.letters{display:flex;gap:12px;justify-content:center;margin:12px 0}.letters button{font-size:30px;width:70px;padding:8px}.layout{display:grid;grid-template-columns:1fr 240px;gap:25px;align-items:center}.picture{position:relative;background:white;border-radius:28px;height:min(62vh,550px);min-height:280px;box-shadow:0 8px 30px #244f3f0a}.picture img{position:absolute;width:100%;height:100%;object-fit:contain;transition:opacity .45s}.controls{display:grid;gap:14px}.controls button{font-size:19px}.nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}.hint{font-size:18px;text-align:center;min-height:30px}.quizoptions{display:flex;justify-content:center;gap:16px;margin:15px 0}.quizoptions button{width:120px;height:120px;padding:8px}.quizoptions img{width:100%;height:100%;object-fit:contain}.result{height:38px;text-align:center;font-size:24px;color:#246f62}.footer{font-size:14px;color:#66786e;text-align:center;margin-top:22px}[hidden]{display:none!important}@media(max-width:650px){header{display:block;padding:18px}header nav{margin-top:16px;display:flex;gap:8px}.layout{grid-template-columns:1fr}.controls{grid-template-columns:repeat(2,1fr)}.picture{height:44vh}.letters{gap:7px}.letters button{width:57px}main{padding:0 12px 20px}button{padding:12px}h1{font-size:22px}}
+button svg{width:42px;height:42px;display:block;margin:auto;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.controls{grid-template-columns:1fr 1fr}.controls label{grid-column:1/-1}.controls button{padding:10px;min-height:72px}header nav{display:flex;gap:8px}.nav button{min-width:80px}
+html{height:100%}body{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}header{width:100%;padding:12px 20px;flex:none}header h1{font-size:clamp(18px,2.4vw,25px)}header small{font-size:12px}header button{min-height:48px;padding:5px 14px}header button svg{width:32px;height:32px}main{width:100%;flex:1;min-height:0;display:flex;flex-direction:column;padding:0 18px 10px}#learn{flex:1;min-height:0;display:flex;flex-direction:column}.letters{flex:none;margin:4px 0 10px;gap:10px}.letters button{font-size:27px;min-height:46px;padding:3px;width:62px}.layout{flex:1;min-height:0;grid-template-columns:minmax(0,1fr) 220px;gap:16px;align-items:stretch}.picture{height:100%;min-height:0;overflow:hidden}.controls{gap:8px;align-content:center}.controls button{min-height:54px;padding:5px}.controls button svg{width:37px;height:37px}.controls label{font-size:14px}.hint{flex:none;margin:7px 0 0;min-height:24px;font-size:17px}.nav{flex:none;margin-top:6px}.nav button{padding:3px 14px;min-height:44px}.nav button svg{height:30px;width:30px}.footer{flex:none;font-size:11px;margin:6px 0 0}#quiz{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:8px}#quiz .picture{flex:1;max-height:30vh}#quiz .hint{margin:0}#quiz button{padding:6px 16px;min-height:46px}.quizoptions{margin:5px 0}.quizoptions button{width:min(20vw,120px);height:min(20vw,120px)}
+@media(max-width:650px){header{display:flex;padding:8px 12px;gap:6px}header nav{margin:0;gap:4px}header button{padding:4px 8px}header h1{font-size:17px}header small{font-size:10px}main{padding:0 10px 6px}.layout{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;gap:8px}.controls{grid-template-columns:repeat(4,1fr);gap:5px}.controls button{min-height:44px}.controls button svg{width:30px;height:30px}.controls label{grid-column:auto/span 1;align-self:center;font-size:11px}.letters{margin:3px 0 6px}.letters button{min-height:40px;width:48px;font-size:24px}.footer{font-size:10px}}
+@media(max-height:550px) and (min-width:651px){header{padding:5px 14px}header small{display:none}.letters{margin:0 0 4px}.letters button{min-height:36px;font-size:22px}.controls button{min-height:42px}.controls button svg{width:30px;height:30px}.hint{margin:3px 0}.nav{margin-top:3px}.footer{display:none}}
+
+#learn .picture{width:min(100%,calc(100dvh - 220px));height:auto;aspect-ratio:1;max-height:100%;justify-self:center;align-self:center}
+#quiz{align-items:center;gap:6px}.quizsettings{font-size:15px;display:flex;align-items:center;gap:10px}.quizsettings select{font:inherit;min-width:62px;min-height:38px;border:2px solid #cbdad4;border-radius:10px;background:white}.quizoptions{display:grid;grid-template-columns:repeat(var(--choices,3),minmax(0,120px));justify-content:center;gap:12px;width:100%;max-width:720px}.quizoptions button,#quiz .quizoptions button{position:relative;width:100%;height:auto;aspect-ratio:1;min-height:0;padding:0}.quizoptions img{display:block;width:100%;height:100%;object-fit:contain}.correctCircle{position:absolute;inset:3%;width:94%;height:94%;pointer-events:none;fill:none;stroke:#e53935;stroke-width:7;animation:circlePop .25s ease-out}.result.correct{color:#e53935;font-weight:bold}#quiz #hintpic{flex:none;aspect-ratio:1;width:min(25dvh,240px);height:auto!important;max-height:none}#quiz .result{flex:none;min-height:32px;height:32px;font-size:22px}#quiz>div:last-child button{min-height:40px;padding:2px 12px}@keyframes circlePop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@media(max-width:650px){#learn .picture{width:min(100%,calc(100dvh - 335px))}.quizoptions{gap:7px}#quiz #hintpic{width:min(27dvh,240px)}}
+@media(max-height:550px) and (min-width:651px){#learn .picture{width:min(100%,calc(100dvh - 145px))}#quiz{gap:3px}#quiz #hintpic{width:19dvh}.quizoptions{grid-template-columns:repeat(var(--choices,3),minmax(0,85px))}#quiz .result{height:24px;min-height:24px;font-size:18px}.quizsettings select{min-height:28px}#quiz button svg{width:28px;height:28px}#quiz button{min-height:36px}}
+#quiz .quizoptions button .correctCircle{width:94%;height:94%;margin:0;stroke:#e53935;stroke-width:7}#quiz .quizoptions button .wrongCross{position:absolute;inset:3%;width:94%;height:94%;margin:0;fill:none;stroke:#3976bf;stroke-width:8;stroke-linecap:round;pointer-events:none;animation:circlePop .2s ease-out}#quiz #qStart{width:100px;height:100px;border-radius:50%;padding:14px}#quiz #qStart svg{width:100%;height:100%}button:disabled{opacity:.35;cursor:default}
+#match{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;gap:7px}#match .letters{margin:3px 0}#matchInstruction{margin:0;min-height:26px}#matchInstruction.solved{color:#e53935;font-weight:bold}#matchBoard{position:relative;aspect-ratio:1;width:min(100%,calc(100dvh - 245px));background:white;border-radius:24px;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}#matchArt,#matchGuide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;object-fit:contain}#matchGuide{opacity:.18}#matchPiece{position:absolute;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;opacity:.7}#matchPiece:active{cursor:grabbing}#matchCircle{position:absolute;inset:12%;width:76%;height:76%;fill:none;stroke:#e53935;stroke-width:6;pointer-events:none;animation:circlePop .3s ease-out}.matchControls{display:flex;justify-content:center;gap:9px}.matchControls button{min-height:48px;padding:5px 12px}.matchControls button svg{width:33px;height:33px}@media(max-width:650px){header{flex-wrap:wrap}header nav{margin-left:auto}header h1{font-size:15px}#matchBoard{width:min(100%,calc(100dvh - 260px))}.matchControls{gap:5px}.matchControls button{padding:5px 10px}}@media(max-height:550px) and (min-width:651px){#matchBoard{width:min(100%,calc(100dvh - 180px))}#match .letters button{min-height:32px}#match{gap:3px}.matchControls button{min-height:36px}.matchControls button svg{width:26px;height:26px}}
+
+#pairs{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}.pairSettings{display:flex;gap:10px;align-items:center;font-size:15px}.pairSettings select{font:inherit;min-height:38px;min-width:62px;border:2px solid #cbdad4;border-radius:10px;background:white}#pairBoard{width:100%;max-width:800px;display:grid;gap:20px;min-height:0}.pairRow{display:grid;grid-template-columns:repeat(var(--pairCount,3),minmax(0,1fr));gap:12px;justify-content:center}.pairCard{position:relative;aspect-ratio:1;width:100%;height:auto;min-height:0;max-height:min(26dvh,190px);padding:0;overflow:hidden;border-radius:18px;background:white;touch-action:manipulation}.pairCard img{display:block;object-fit:contain;width:100%;height:100%;pointer-events:none}.pairCard.selected{border-color:#d69a27;box-shadow:0 0 0 3px #d69a27;background:#fff9e8}.pairCard.matched{border-color:#e53935;background:white;opacity:1;cursor:default}.pairCard .pairMark{position:absolute;inset:3%;width:94%;height:94%;margin:0;fill:none;stroke-width:7;pointer-events:none;animation:circlePop .25s ease-out}.pairCard .pairMark.good{stroke:#e53935}.pairCard .pairMark.bad{stroke:#3976bf;stroke-linecap:round}#pairStatus{font-size:19px;min-height:26px;margin:0;text-align:center}#pairStatus.complete{color:#e53935;font-weight:bold}#pairReset{min-height:44px;padding:3px 14px}#pairReset svg{width:32px;height:32px}#pairs .hint{margin:0}@media(max-width:650px){#pairBoard{gap:16px}.pairRow{gap:6px}.pairCard{border-radius:12px;max-height:25dvh}header nav button{padding:4px 8px}}@media(max-height:550px) and (min-width:651px){#pairs{gap:4px}#pairBoard{gap:8px;max-width:650px}.pairCard{max-height:24dvh}.pairSettings select{min-height:28px}#pairStatus{min-height:23px;font-size:17px}#pairReset svg{width:25px;height:25px}}
+#pairBoard{width:min(100%,calc(var(--pairCount,3) * min(24dvh,190px) + (var(--pairCount,3) - 1) * 12px))}.pairCard{max-height:none}
+#pairArts .pairCard{touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}#pairArts .pairCard.dragging{opacity:.25}#pairArts .pairCard.joinedSource{visibility:hidden}.pairCard.dropReady{box-shadow:0 0 0 4px #d69a27}.pairGhost{position:fixed;z-index:1000;pointer-events:none;border:3px solid #d69a27;border-radius:18px;background:white;box-shadow:0 8px 24px #0003;object-fit:contain;opacity:.95}.pairCard .joinedImages{width:100%;height:100%;display:flex;align-items:center;pointer-events:none}.pairCard .joinedImages img{width:50%;height:100%;object-fit:contain}.pairCard{user-select:none;-webkit-user-select:none}.pairCard img{-webkit-user-drag:none}
+
+#trace{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;gap:6px}#trace .letters{margin:3px 0}#trace .hint{margin:0}#traceBoard{position:relative;aspect-ratio:1;width:min(100%,calc(100dvh - 295px));border-radius:24px;background:white;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}#traceBoard img,#traceCanvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}#traceBoard img{pointer-events:none}#traceArt{opacity:.65}#traceGlyph{opacity:.28}#traceCanvas{touch-action:none;cursor:crosshair}.traceControls,.traceNav{display:flex;justify-content:center;gap:8px}.traceControls button,.traceNav button{min-height:44px;padding:4px 12px}.traceControls button svg,.traceNav button svg{width:31px;height:31px}.traceNav{width:100%;max-width:450px;justify-content:space-between}header nav{flex-wrap:wrap}@media(max-width:650px){#traceBoard{width:min(100%,calc(100dvh - 340px))}.traceControls{gap:5px}.traceControls button{padding:4px 10px}}@media(max-height:550px) and (min-width:651px){#trace{gap:3px}#traceBoard{width:min(100%,calc(100dvh - 225px))}.traceControls button,.traceNav button{min-height:34px}.traceControls button svg,.traceNav button svg{width:25px;height:25px}}
+
+#words{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}#words .hint{margin:0}#wordStart{width:100px;height:100px;padding:14px;border-radius:50%}#wordStart svg{width:100%;height:100%}#wordGame{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:800px}#wordSlots,#wordBank,#wordHintRow{display:flex;justify-content:center;gap:12px;width:100%}.wordSlot,.wordTile{position:relative;flex:none;padding:0;background:white;min-height:0;border-radius:16px;touch-action:none;user-select:none;-webkit-user-select:none}.wordSlot{width:min(19vw,18dvh,120px);height:min(19vw,18dvh,120px);border:3px dashed #b0c7bf}.wordSlot.filled{border-style:solid}.wordTile{width:min(15vw,14dvh,95px);height:min(15vw,14dvh,95px);cursor:grab}.wordSlot img,.wordTile img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;-webkit-user-drag:none}.wordTile.dragging,.wordSlot.dragging{opacity:.25}.wordSlot.dropReady{border-color:#d69a27;background:#fff9e8}.wordSlot.correct{border-color:#e53935}.wordSlot.wrong{border-color:#3976bf}#wordHintRow img{width:min(14vw,9dvh,65px);height:min(14vw,9dvh,65px);object-fit:contain;opacity:.4}#wordResult{font-size:22px;min-height:28px;margin:0;text-align:center}#wordResult.correct{color:#e53935;font-weight:bold}.wordControls{display:flex;justify-content:center;gap:8px}.wordControls button{min-height:44px;padding:4px 12px}.wordControls button svg{width:32px;height:32px}.wordSlot svg.wordMark{position:absolute;inset:3%;width:94%;height:94%;fill:none;stroke-width:7;pointer-events:none}.wordMark.good{stroke:#e53935}.wordMark.bad{stroke:#3976bf;stroke-linecap:round}@media(max-width:650px){#wordGame{gap:12px}#wordSlots,#wordBank{gap:6px}.wordControls{gap:5px}.wordControls button{padding:4px 10px}}@media(max-height:550px) and (min-width:651px){#words{gap:5px}#wordGame{gap:7px}.wordControls button{min-height:36px}.wordControls button svg{width:25px;height:25px}#wordResult{font-size:18px;min-height:23px}}
+#wordArtFrame{position:relative;flex:none;width:min(22dvh,170px);aspect-ratio:1;border:2px dashed #cbdad4;border-radius:20px;background:white;display:flex;align-items:center;justify-content:center}#wordArtFrame img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}#wordArtPlaceholder{width:45%;height:45%;fill:none;stroke:#cbdad4;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}#wordGame{gap:10px}.wordSlot{width:min(19vw,15dvh,110px);height:min(19vw,15dvh,110px)}.wordTile{width:min(15vw,11dvh,85px);height:min(15vw,11dvh,85px)}@media(max-height:550px) and (min-width:651px){#wordArtFrame{width:16dvh}#wordGame{gap:5px}.wordSlot{width:12dvh;height:12dvh}.wordTile{width:10dvh;height:10dvh}}
+
+#memory{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;gap:8px}#memorySettings{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;font-size:15px}#memorySettings label{display:flex;align-items:center;gap:5px}#memorySettings select{font:inherit;background:white;border:2px solid #cbdad4;border-radius:10px;min-height:36px}#memoryScore{margin:0;min-height:28px;display:flex;gap:16px;align-items:center;font-size:18px}#memoryScore span{padding:4px 12px;border-radius:12px}#memoryScore .active{background:#246f62;color:white}#memoryBoard{flex:1;min-height:0;width:100%;display:grid;justify-content:center;align-content:center;grid-template-columns:repeat(var(--memoryCols,4),minmax(0,var(--memorySize,140px)));gap:10px}.memoryCard{position:relative;width:100%;aspect-ratio:1;min-height:0;padding:0;overflow:hidden;border-radius:16px;background:#246f62;border-color:#246f62;touch-action:manipulation}.memoryCard:hover{background:#327e70}.memoryCard img{width:100%;height:100%;object-fit:contain;display:none;pointer-events:none}.memoryBack{display:block;font-size:clamp(25px,5dvh,45px);color:white}.memoryCard.open,.memoryCard.found{background:white;border-color:#cbdad4}.memoryCard.open img,.memoryCard.found img{display:block}.memoryCard.open .memoryBack,.memoryCard.found .memoryBack{display:none}.memoryCard.found{opacity:1;cursor:default;border-color:#e53935}.memoryCard svg.memoryMark{position:absolute;inset:3%;width:94%;height:94%;margin:0;stroke:#e53935;stroke-width:7;fill:none;pointer-events:none;animation:circlePop .25s ease-out}#memoryStatus{margin:0;min-height:26px;font-size:18px;text-align:center}#memoryStatus.complete{color:#e53935;font-weight:bold}#memoryReset{min-height:40px;padding:3px 14px}#memoryReset svg{width:30px;height:30px}@media(max-width:650px){#memory{gap:5px}#memorySettings{font-size:13px;gap:4px 10px}#memoryBoard{gap:6px}#memoryScore{font-size:15px}.memoryCard{border-radius:12px}}
+#memory .memoryCard.bluePair{border-color:#3976bf}#memory .memoryCard.bluePair svg.memoryMark{stroke:#3976bf}#memoryScore .player0{color:#d83232;border:2px solid #e53935}#memoryScore .player1{color:#3976bf;border:2px solid #3976bf}#memoryScore .player0.active{background:#e53935;color:white}#memoryScore .player1.active{background:#3976bf;color:white}.letters select{font:inherit;font-size:22px;min-height:42px;border:2px solid #cbdad4;background:white;border-radius:12px;padding:3px 14px;max-width:65vw}.letters label{font-size:16px;display:flex;gap:10px;align-items:center}
+#letterDialog{width:min(95vw,750px);max-height:95dvh;padding:20px;border:2px solid #cbdad4;border-radius:24px;background:#f9f6ef;color:#263c3a}#letterDialog::backdrop{background:#263c3a80}#letterDialog h2{font-size:22px;margin:0}#letterDialog p{margin:8px 0;font-size:15px}#letterGrid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}#letterGrid button{padding:2px;min-height:0;height:min(8dvh,58px);font-size:25px;border-radius:10px}.letterActions{display:flex;gap:8px;justify-content:center}.letterActions button{min-height:40px;padding:5px 12px}.letterActions svg{width:28px;height:28px}@media(max-width:650px){#letterDialog{padding:12px}#letterGrid{gap:4px}#letterGrid button{font-size:21px;height:7dvh}}
+
+/* === 統合版調整 2026-10-11: 元画面を維持しつつ可視領域と操作を最適化 === */
+.audioButton,.audioButton.primary{border:3px solid #cbded8;background:white;color:#197b70;border-radius:50%;padding:6px;display:inline-flex;justify-content:center;align-items:center;aspect-ratio:1;min-width:44px;min-height:44px;box-shadow:0 3px 9px #193f3112}
+.audioButton:hover{background:#f2faf7}
+.audioButton .volumeIcon{width:73%;height:73%;stroke:currentColor}
+#speak.audioButton{width:66px;min-height:66px;justify-self:center}
+#qSound.audioButton{width:58px;height:58px}
+#matchSound.audioButton,#traceSound.audioButton,#wordSound.audioButton{width:49px;height:49px;min-height:49px}
+.memoryCard,.memoryCard:hover{background:#edf5f2;border:3px solid #cbded8}
+.memoryCard.open,.memoryCard.found{background:white;border:3px solid #cbdad4}
+.memoryBack{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#559f99}
+.memoryBack svg{width:48%;height:48%;fill:#559f99;stroke:none;display:block}
+.wordTile.swipeVisited{border-color:#246f62;background:#e6f4eb;box-shadow:0 0 0 3px #65ad9a}
+#wordArtFrame img{object-fit:contain}
+#wordArtFrame{overflow:hidden}
+/* Scale from both the viewport width and height, preventing scrolling on small tablets */
+html,body{height:100%;height:100dvh;max-height:100dvh;overflow:hidden}
+body{width:100%;max-width:100vw;min-width:0}
+header{max-width:none;width:100%;padding:clamp(4px,1.2dvh,12px) clamp(6px,1.5vw,20px);gap:clamp(4px,1vw,16px)}
+header nav{gap:clamp(3px,0.55vw,8px);display:flex;flex-wrap:nowrap}
+header nav button{width:clamp(37px,5.3dvh,58px);min-width:clamp(37px,5.3dvh,58px);height:clamp(37px,5.3dvh,58px);min-height:0;padding:4px;border-radius:16px}
+header nav button svg{width:90%;height:90%}
+header h1{font-size:clamp(15px,2.3vw,25px);white-space:nowrap}
+header small{font-size:clamp(10px,1.3vw,12px)}
+main{max-width:none;width:100%;min-height:0;padding:0 clamp(5px,1vw,18px) clamp(3px,0.5dvh,8px)}
+main>section:not([hidden]){min-height:0;overflow:hidden}
+.footer{margin-top:clamp(0px,0.45dvh,5px);font-size:clamp(9px,1.4dvh,12px);min-height:14px}
+#learn .picture{height:auto;width:min(100%,calc(100dvh - 165px));max-height:100%;min-height:0;aspect-ratio:1}
+#matchBoard{max-height:100%;width:min(100%,calc(100dvh - 195px));min-height:0}
+#traceBoard{max-height:100%;width:min(100%,calc(100dvh - 220px));min-height:0}
+#wordGame{gap:clamp(3px,1dvh,9px);min-height:0}
+#wordArtFrame{width:min(23dvh,180px);min-height:0}
+#wordSlots,#wordBank,#wordHintRow{gap:clamp(4px,1.1vw,12px)}
+.wordSlot{width:min(16vw,14dvh,110px);height:min(16vw,14dvh,110px)}
+.wordTile{width:min(15vw,11dvh,88px);height:min(15vw,11dvh,88px)}
+#wordResult{margin:0;min-height:20px}
+#words{gap:clamp(3px,0.6dvh,7px)}
+#pairs{gap:clamp(4px,1dvh,9px)}
+#pairBoard{flex:1;min-height:0;align-content:center;max-height:100%}
+.pairRow{gap:clamp(5px,1vw,12px)}
+.pairCard{max-height:min(24dvh,170px)}
+#memory{gap:clamp(3px,0.75dvh,8px)}
+#memoryBoard{gap:clamp(5px,1dvh,10px)}
+#memoryBoard .memoryCard{min-width:0}
+#wordGame #wordHintRow img{width:min(12dvh,65px);height:min(12dvh,65px)}
+#letterDialog{max-height:92dvh;overflow:auto}
+@media(max-height:680px){
+ header small{display:none}
+ #wordArtFrame{width:min(21dvh,160px)}
+ .wordSlot{width:min(15vw,12dvh,100px);height:min(15vw,12dvh,100px)}
+ .wordTile{width:min(13vw,10dvh,80px);height:min(13vw,10dvh,80px)}
+ #wordGame{gap:4px}#wordResult{font-size:15px;min-height:16px}
+ #traceBoard{width:min(100%,calc(100dvh - 165px))}
+ #matchBoard{width:min(100%,calc(100dvh - 153px))}
+ .letters{margin:2px 0 5px}
+ .nav{margin-top:3px}
+ #speak.audioButton{width:51px;min-height:51px}
+}
+@media(max-width:1050px){
+ header nav button{width:clamp(32px,5dvh,48px);min-width:clamp(32px,5dvh,48px);height:clamp(32px,5dvh,48px)}
+ header{padding:5px 8px}
+ .layout{grid-template-columns:minmax(0,1fr) minmax(148px,22vw);gap:8px}
+ .controls{gap:4px}
+ .controls button{min-height:42px}
+}
+@media(max-width:780px){
+ header h1{font-size:clamp(12px,2.6vw,18px)}
+ header nav button{width:clamp(30px,5vw,40px);height:clamp(30px,5vw,40px);min-width:clamp(30px,5vw,40px);border-radius:10px}
+ header small{display:none}
+ .layout{grid-template-columns:minmax(0,1fr) minmax(135px,26vw);grid-template-rows:1fr}
+ #learn .picture{width:min(100%,calc(100dvh - 175px))}
+ #wordArtFrame{width:min(20dvh,145px)}
+}
+@media(max-width:670px) and (orientation:portrait){
+ header{flex-wrap:wrap;justify-content:center;gap:3px}
+ header nav{width:100%;justify-content:center}
+ header nav button{width:clamp(32px,8vw,44px);height:clamp(32px,8vw,44px);min-width:clamp(32px,8vw,44px)}
+ .layout{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}
+ #learn .picture{width:min(100%,calc(100dvh - 290px))}
+ #matchBoard{width:min(100%,calc(100dvh - 270px))}
+ #traceBoard{width:min(100%,calc(100dvh - 290px))}
+ #wordArtFrame{width:min(24dvh,150px)}
+ .wordTile{width:min(16vw,10dvh);height:min(16vw,10dvh)}
+ .wordSlot{width:min(20vw,12dvh);height:min(20vw,12dvh)}
+}
+@media(max-height:475px){
+ header{padding:2px 6px}
+ header nav button{width:29px;min-width:29px;height:29px;min-height:29px;padding:2px;border-radius:7px}
+ header h1{font-size:15px}
+ .footer{display:none}
+ #wordArtFrame{width:15dvh}
+ .wordSlot{width:11dvh;height:11dvh}
+ .wordTile{width:9dvh;height:9dvh}
+ #learn .picture{width:min(100%,calc(100dvh - 122px))}
+ #matchBoard{width:min(100%,calc(100dvh - 132px))}
+ #traceBoard{width:min(100%,calc(100dvh - 140px))}
+}
+
+
+/* v2.2: 絵を枠いっぱいに / アイコン＋文字のメニュー */
+header nav{gap:clamp(2px,.5vw,8px);flex-wrap:nowrap;align-items:flex-start}
+header nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;width:clamp(65px,6.8vw,100px);height:clamp(57px,8dvh,76px);min-width:0;
+  padding:4px 3px;flex:none;border-radius:15px}
+header nav button svg{width:clamp(21px,3.6dvh,34px);height:clamp(21px,3.6dvh,34px);margin:0;flex:none}
+header nav button .tabLabel{display:block;white-space:nowrap;font-size:clamp(9px,.83vw,12px);font-weight:600;line-height:1.2}
+#wordArtFrame{width:min(26dvh,210px);min-width:0;overflow:hidden}
+#wordArtFrame img{display:block;width:100%;height:100%;object-fit:contain;}
+#wordArtFrame img[hidden]{display:none}
+@media(max-height:680px){#wordArtFrame{width:min(23dvh,172px)}}
+@media(max-height:520px){#wordArtFrame{width:min(19dvh,145px)}header nav button{height:50px}header nav button svg{height:21px;width:21px}}
+@media(max-width:1100px){header{gap:5px}header h1{font-size:clamp(14px,1.7vw,22px)}
+ header nav button{width:clamp(54px,7.3vw,79px)}header nav button .tabLabel{font-size:clamp(8px,.9vw,11px)}}
+@media(max-width:750px){header nav{gap:2px;flex-wrap:wrap;justify-content:center}
+ header nav button{height:53px;width:clamp(43px,11vw,68px)}header nav button .tabLabel{font-size:9px}}
+
+/* v2.3: 絵の枠は実線。元絵には手を加えない。 */
+#wordArtFrame{border:3px solid #cbdad4!important}
+#wordArtPlaceholder{display:none!important}
+/* 音声クイズは開始前に絵のあり・なしを選択 */
+.quizModeChooser{text-align:center;flex:none;margin:0 auto}
+.quizModeChooser p{font-size:clamp(14px,2.4dvh,21px);margin:3px 0 10px}
+.quizModeChoices{display:flex;justify-content:center;gap:clamp(8px,1.5vw,20px)}
+#quiz .quizModeChoices button{min-width:clamp(104px,15vw,160px);min-height:56px;padding:8px 14px;font-size:clamp(16px,2dvh,21px);font-weight:600}
+#qHint.on{background:#246f62;color:white;border-color:#246f62}
+@media(max-height:600px){.quizModeChooser p{margin:0 0 4px}#quiz .quizModeChoices button{min-height:42px}}
+
+/* v2.4: 録音済み音声の男女切替はどの教材でも共通 */
+.voiceChooser{display:flex;align-items:center;gap:5px;margin-top:5px;white-space:nowrap;font-weight:600;font-size:clamp(12px,1.5dvh,15px)}
+.voiceChooser select{font-family:inherit;font-size:clamp(13px,1.5dvh,15px);padding:4px 9px;max-width:112px;min-height:31px;background:#fff;border:2px solid #87bcb0;color:#24564d;border-radius:10px}
+header h1{line-height:1.2}
+header small{margin-top:3px}
+@media(max-width:790px){.voiceChooser select{max-width:90px;padding:3px 2px}.voiceChooser{gap:3px;font-size:12px}}
+
+/* v2.5 正解カードの読み上げ・ことばのゆっくり再生 */
+.correctReadSetting{display:flex;justify-content:center;align-items:center;gap:6px;font-size:13px;white-space:nowrap;user-select:none;min-height:24px;color:#345e54}
+.correctReadSetting input{width:19px;height:19px;accent-color:#246f62;cursor:pointer}
+#match .correctReadSetting{flex:none}
+#pairs .correctReadSetting{margin:-2px 0}
+#memorySettings .correctReadSetting{min-height:36px}
+#wordSlow{font-size:14px;min-width:72px;padding:5px 8px;background:#e8f6ee;border-color:#76b9a1;color:#194d41}
+#wordSlow:active{background:#c8e9db}
+@media(max-width:650px){.wordControls{gap:4px;flex-wrap:wrap}.wordControls button{padding:3px 7px}.correctReadSetting{font-size:12px}}
+@media(max-height:550px) and (min-width:651px){#matchBoard{width:min(100%,calc(100dvh - 204px))}.correctReadSetting{font-size:12px;min-height:20px}}
+
+/* v2.5.1: iPad/Safari safe navigation. Keep every learning-mode button visible. */
+@media (max-width: 1199px) {
+  header {display:flex;flex-wrap:wrap;align-content:flex-start;justify-content:center;gap:3px 6px;padding:5px 9px 3px}
+  header > div:first-child {width:100%;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  header h1 {font-size:clamp(15px,2vw,22px)}
+  header small {display:none}
+  header .voiceChooser {margin-top:0;flex:none}
+  header nav {width:100%;min-width:0;max-width:none;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px;justify-items:stretch;align-items:stretch;flex-wrap:nowrap;margin:0}
+  header nav button {box-sizing:border-box;min-width:0!important;max-width:none!important;width:100%!important;height:clamp(48px,7.8dvh,65px);min-height:0!important;padding:3px 1px;border-radius:10px;overflow:hidden;flex:none}
+  header nav button svg {width:clamp(20px,3.3dvh,30px);height:clamp(20px,3.3dvh,30px);flex:none}
+  header nav button .tabLabel {font-size:clamp(9px,1vw,12px);line-height:1.2;white-space:nowrap;display:block;letter-spacing:-.025em}
+}
+@media (max-width: 540px) {
+  header nav {grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
+  header nav button {height:43px;flex-direction:row;gap:2px;padding:2px 1px}
+  header nav button svg {width:18px;height:18px}
+  header nav button .tabLabel {font-size:9px}
+  header h1 {font-size:15px}
+  header .voiceChooser {font-size:11px}
+}
+@media (max-width: 540px) and (max-height: 640px) {
+  header nav button {height:36px}
+  header nav button svg {width:16px;height:16px}
+}
+
+/* iPad教材操作：文字選択・長押し画像メニュー・ダブルタップ拡大を抑制 */
+html{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body,button,img,svg,header,main{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+img{-webkit-user-drag:none;user-drag:none}button{touch-action:manipulation}
+#matchBoard,#matchPiece,#traceBoard,#traceCanvas,#wordBank,#pairBoard{touch-action:none;-webkit-touch-callout:none}
+/* 行と文字は左側で隣接。長い場合もこの枠だけスクロール */
+#learn .learnChooser{width:min(100%,480px);max-height:88px;align-self:flex-start;justify-content:flex-start;display:flex;flex-direction:row;align-items:stretch;gap:8px;margin:3px 0 7px;overflow:hidden}
+.learnRowChoices{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;width:255px;max-width:55%;overflow-y:auto;overscroll-behavior:contain;padding:1px}
+.learnCharChoices{display:flex;flex-wrap:wrap;align-content:flex-start;gap:3px;flex:1;min-width:0;overflow-y:auto;overscroll-behavior:contain;padding:1px}
+#learn .learnChooser button{min-width:0;width:auto;min-height:33px;font-size:17px;line-height:1.1;padding:3px 5px;border-radius:9px}
+.learnCharChoices button{flex:0 0 33px}
+.letterActions #closeLetters,.letterActions #applyLetters{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.letterActions #closeLetters span,.letterActions #applyLetters span{font-size:15px}
+@media(max-height:650px){#learn .learnChooser{max-height:73px}.learnRowChoices{grid-template-columns:repeat(5,minmax(0,1fr))}#learn .learnChooser button{min-height:30px;font-size:15px}}
+
+/* v2.7: 行の選択と文字を画像の左側に置く */
+#learn .layout{display:grid;grid-template-columns:minmax(190px,220px) minmax(0,1fr) minmax(155px,190px);gap:10px;align-items:stretch}
+#learn #letters.learnChooser{grid-column:1;grid-row:1;margin:0;width:100%;max-width:none;max-height:100%;height:100%;min-height:0;display:block;overflow-y:auto;overflow-x:hidden;border:2px solid #d9e7df;border-radius:14px;padding:5px;overscroll-behavior:contain;align-self:stretch;background:#f4f9f5}
+#learn .learnRowChoices{display:flex;flex-direction:column;gap:4px;width:100%;max-width:none;overflow:visible;padding:0}
+#learn .learnRowUnit{display:flex;align-items:flex-start;gap:3px;min-width:0}
+#learn .learnRowUnit>.learnRowButton{width:59px;min-width:59px;flex:0 0 59px;min-height:36px;font-size:15px;padding:4px 1px}
+#learn .learnCharChoices{display:flex;gap:2px;flex-wrap:wrap;align-items:center;align-content:flex-start;flex:1;min-width:0;padding:0;overflow:visible}
+#learn .learnCharChoices button{flex:0 0 26px;min-width:26px;width:26px;min-height:36px;font-size:19px;padding:2px 0;border-radius:7px}
+#learn .layout>.picture{grid-column:2;grid-row:1;width:min(100%,calc(100dvh - 160px));align-self:center;justify-self:center}
+#learn .layout>.controls{grid-column:3;grid-row:1}
+#matchPiece{object-fit:contain;max-width:none;max-height:none;transform-origin:top left;will-change:transform;pointer-events:none}
+@media(max-width:760px){#learn .layout{grid-template-columns:minmax(135px,160px) minmax(0,1fr) minmax(100px,145px);gap:5px}#learn .learnRowUnit>.learnRowButton{width:48px;min-width:48px;flex-basis:48px;font-size:13px}#learn .learnCharChoices button{min-width:23px;width:23px;flex-basis:23px;font-size:17px}#learn .layout>.controls{grid-template-columns:1fr 1fr;gap:3px}}
+
+/* v3.3: きく・えともじの右側に設定をまとめる */
+#quiz,#pairs{position:relative!important;padding-right:clamp(160px,15vw,240px)!important;}
+#quiz .quizRight,#pairs .pairsRight{position:absolute;right:clamp(5px,1vw,18px);top:clamp(12px,3dvh,38px);width:clamp(145px,13vw,215px);display:flex;flex-direction:column;align-items:stretch;gap:clamp(9px,2dvh,20px);z-index:3;}
+#quiz .quizRight>.quizsettings,#pairs .pairsRight>.pairSettings{display:flex;flex-direction:column;gap:6px;text-align:center;white-space:normal;align-items:center;font-size:clamp(14px,1.5vw,18px)}
+#quiz .quizRight>div{display:flex!important;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap}
+#quiz .quizRight button{min-width:clamp(55px,5vw,76px);height:clamp(55px,5vw,76px);padding:5px!important;}
+#quiz .quizRight button svg{width:clamp(33px,3vw,48px)!important;height:clamp(33px,3vw,48px)!important}
+#quiz #hintpic{width:min(27dvh,210px)!important;height:min(27dvh,210px)!important;max-height:27dvh!important}
+#quiz .quizoptions{width:100%!important;max-width:760px!important;gap:clamp(6px,1.5dvh,16px)!important;}
+#quiz .quizoptions button{width:min(19dvh,140px)!important;height:min(19dvh,140px)!important;}
+#pairs .pairsRight>.correctReadSetting{display:flex;gap:6px;align-items:flex-start;font-size:clamp(14px,1.4vw,18px);line-height:1.35;text-align:left;white-space:normal}
+#pairs .pairsRight>.correctReadSetting input{flex:none}
+#pairs #pairBoard{width:100%!important;max-width:760px!important;}
+#pairs .pairCard{width:min(22dvh,172px)!important;height:min(22dvh,172px)!important;}
+@media (max-height:650px){#quiz .quizRight,#pairs .pairsRight{top:6px;gap:8px}#quiz #hintpic{width:min(23dvh,180px)!important;height:min(23dvh,180px)!important}#quiz .quizoptions button{width:min(17dvh,118px)!important;height:min(17dvh,118px)!important}#pairs .pairCard{width:min(19dvh,135px)!important;height:min(19dvh,135px)!important}}
+@media(max-width:720px){#quiz,#pairs{padding-right:120px!important}#quiz .quizRight,#pairs .pairsRight{right:2px;width:113px}#quiz .quizRight button{min-width:48px;height:48px}#quiz .quizRight button svg{width:30px!important;height:30px!important}#pairs .pairsRight>.correctReadSetting{font-size:12px}#quiz .quizoptions button{width:min(16dvh,105px)!important;height:min(16dvh,105px)!important}}
+
+/* v3.4: えともじ：カードの間隔を詰め、中央にまとめる */
+#pairs #pairBoard{
+ width:min(100%,calc(var(--pairCount,3) * min(20dvh,160px) + (var(--pairCount,3) - 1) * 14px))!important;
+ max-width:calc(100% - 190px)!important;
+ margin-left:auto!important;margin-right:auto!important;
+}
+#pairs .pairRow{display:flex!important;justify-content:center!important;align-items:center!important;
+ gap:clamp(7px,1vw,14px)!important;width:100%!important}
+#pairs .pairCard{flex:0 1 min(20dvh,160px)!important;min-width:0!important;
+ width:min(20dvh,160px)!important;height:min(20dvh,160px)!important}
+@media(max-height:650px){#pairs .pairCard{flex-basis:min(18dvh,126px)!important;
+ width:min(18dvh,126px)!important;height:min(18dvh,126px)!important}}
+@media(max-width:720px){#pairs #pairBoard{max-width:calc(100% - 122px)!important}}
+
+/* Illustrated entrance: uses the provided 1648 × 928 design with functional hit areas. */
+body:has(#homeScreen:not([hidden]))>header{display:none!important}
+body:has(#homeScreen:not([hidden]))>main{padding:0!important;background:#fff8ef;display:flex;align-items:center;justify-content:center}
+body:has(#homeScreen:not([hidden])) #audioNote{display:none!important}
+#homeScreen{width:100%;height:100%;min-height:0!important;display:flex;align-items:center;justify-content:center;overflow:hidden!important;padding:0!important;margin:0}
+#homeCanvas{position:relative;width:min(100vw,calc(100dvh * 1648 / 928));max-height:100dvh;aspect-ratio:1648 / 928;margin:auto;flex:none;overflow:hidden}
+#homeDesign{width:100%;height:100%;display:block;user-select:none;pointer-events:none}
+.homeHotspot{position:absolute;z-index:1;opacity:0;background:transparent!important;border:0!important;border-radius:2vw;padding:0!important;min-width:0!important;min-height:0!important;box-shadow:none!important;touch-action:manipulation}
+.homeHotspot:focus-visible{opacity:1;outline:4px solid #146b62;outline-offset:-5px;background:#ffffff30!important}
+.homeHotspot span{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);overflow:hidden;white-space:nowrap}
+.cardHotspot{left:calc(2% + var(--c) * 24.05%);top:calc(15.5% + var(--r) * 39.75%);width:23.6%;height:38.8%}
+.homeVoice{left:60.9%;top:3.4%;width:10.5%;height:11%}
+#homeVoiceMenu{position:absolute;left:57.6%;top:14%;z-index:10;width:22%;box-sizing:border-box;background:#fffdf8;border:3px solid #75c7c2;border-radius:20px;padding:13px;box-shadow:0 7px 20px #493d2e44;text-align:center;color:#236a65;font-family:inherit}
+#homeVoiceMenu[hidden]{display:none!important}
+#homeVoiceMenu strong{display:block;font-size:clamp(13px,1.8vw,23px);margin-bottom:8px}
+#homeVoiceMenu button{display:block;width:100%;cursor:pointer;border:2px solid #7dc5bd;background:#fff;border-radius:12px;padding:8px 3px;margin:5px 0;color:#255952;font-size:clamp(12px,1.4vw,19px);font-family:inherit;font-weight:700}
+#homeVoiceMenu button[aria-pressed="true"]{background:#dcf7ee;border-color:#008979}
+#homeVoiceMenu #closeHomeVoice{background:#f4f1ed;border-color:#ddd;font-size:clamp(12px,1.2vw,16px)}
+.homeLetters{left:72%;top:3.4%;width:14.8%;height:11%}
+.homeReturn{left:87.3%;top:3.4%;width:11.2%;height:11%}
+</style><style>
+:root{--warm:#f5a23a;--pink:#f8a9bb;--aqua:#55c9d1}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}body{min-height:100dvh}
+header{max-width:none;width:100%;padding:6px 12px;display:flex;flex-direction:column;gap:5px}
+header>div:first-child{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+header h1{font-size:clamp(16px,2vw,24px)}header small{display:none}
+header nav{width:100%;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px;margin:0;flex-wrap:nowrap}
+header nav button{min-width:0;min-height:50px;padding:3px 2px;font-size:clamp(9px,1.2vw,14px);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+header nav button svg{width:24px;height:24px}header nav button .tabLabel{display:block;white-space:nowrap}
+main{max-width:none;width:100%;flex:1;min-height:0;overflow:hidden;padding:2px 8px 6px}
+#letterSettings{font-size:14px}#topUtilities{display:flex;align-items:center;gap:7px}
+#topUtilities button{padding:4px 10px;min-height:36px}#topUtilities .voiceChooser{font-size:14px;display:flex;align-items:center;gap:4px}
+#topUtilities select{font-size:14px;padding:4px;max-width:120px}
+#homeScreen{height:100%;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:8px}
+#homeGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:min(100%,1080px);max-height:100%}
+.homeCard{padding:10px;background:#fff;border:3px solid var(--pink);border-radius:19px;display:flex;flex-direction:column;align-items:center;gap:6px;min-height:0;cursor:pointer}
+.homeCard:nth-child(3n+1){border-color:var(--warm)}.homeCard:nth-child(3n+2){border-color:var(--pink)}.homeCard:nth-child(3n){border-color:var(--aqua)}
+.homePreview{width:100%;height:clamp(54px,16vh,150px);object-fit:contain;background:#fffaf4;border-radius:10px}
+.homeCard strong{font-size:clamp(12px,1.55vw,18px)}.homeCard span{color:#789;font-size:12px}
+#puzzlePanel{width:100%;height:100%;overflow:hidden}#puzzleFrame{border:0;width:100%;height:100%;background:#f7f2e9;border-radius:15px}
+#learn,#match,#trace,#words,#memory,#quiz,#pairs{height:100%;max-height:100%;overflow:hidden}
+#learn,#match,#trace{position:relative;padding-left:clamp(108px,18vw,190px)}
+#learn .letters,#match .letters,#trace .letters{position:absolute;left:4px;top:5px;bottom:5px;width:clamp(95px,17vw,180px);overflow-y:auto;align-content:start;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:4px;padding:4px;border-radius:10px;background:#fffaf6}
+#learn .letters button,#match .letters button,#trace .letters button{min-height:36px;width:38px;font-size:21px;padding:1px}
+#learn .layout{width:100%;height:calc(100% - 8px);grid-template-columns:minmax(0,1fr) clamp(112px,18vw,230px);gap:5px}
+#learn .picture{height:min(100%,calc(100dvh - 180px));aspect-ratio:1;max-width:100%;margin:auto}
+#matchBoard,#traceBoard{width:min(100%,calc(100dvh - 205px))}
+#words{position:relative;padding-left:clamp(118px,18vw,200px);padding-right:95px}
+#wordSide{position:absolute;left:4px;top:8px;width:clamp(110px,17vw,195px);display:flex;flex-direction:column;gap:7px;background:#fffaf5;border-radius:12px;padding:8px}
+#wordSide label{display:flex;flex-direction:column;font-size:14px;font-weight:700;gap:3px}
+#wordSide select{font-size:16px;min-height:35px}
+#wordSkip{position:absolute;right:4px;bottom:12px;padding:8px 12px;min-height:45px}
+#wordArtFrame{max-height:31dvh!important;min-height:0!important}#wordArt{max-height:30dvh!important}
+.wordSlot{width:min(20vw,19dvh,135px);height:min(20vw,19dvh,135px)}.wordTile{width:min(16vw,15dvh,105px);height:min(16vw,15dvh,105px)}
+#memory{position:relative;padding-left:clamp(140px,22vw,240px)}
+#memorySettings{position:absolute;top:8px;bottom:8px;left:4px;width:clamp(135px,21vw,230px);display:flex;flex-direction:column;align-items:stretch;overflow:auto;gap:8px}
+#memorySettings label{display:flex;flex-direction:column;gap:3px}#memorySettings select{max-width:100%}
+#quizSkip{min-height:40px;padding:5px 16px}
+@media(max-width:750px){header nav{gap:2px}header nav button{padding:2px 0}header nav button svg{width:20px;height:20px}#homeGrid{gap:5px}.homeCard{padding:4px}#learn .layout{grid-template-columns:minmax(0,1fr) 105px}.homeCard strong{font-size:11px}}
+
+/* v3.1: 撮影用 レイアウト・画面切替の修正 */
+[hidden]{display:none!important}
+body{display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+header{flex:none;z-index:20;position:relative;background:#f9f6ef}
+header nav{position:relative;z-index:21;gap:7px}
+header nav button{width:100%!important;min-height:66px;white-space:normal;line-height:1.1}
+#puzzleTab{font-size:clamp(11px,1.12vw,16px)}
+main{position:relative;isolation:isolate;flex:1;min-height:0;overflow:hidden}
+#puzzlePanel{position:relative;z-index:0;height:100%}
+#homeScreen{overflow:hidden}
+#homeGrid{height:min(100%,620px);grid-template-rows:repeat(2,minmax(0,1fr))}
+.homeCard{justify-content:space-around}
+.homePreview{height:min(15dvh,125px)}
+/* 文字選択：あ行〜わ行を全て画面内に表示 */
+#learn,#match,#trace{padding-left:clamp(245px,21vw,310px)!important}
+#learn .letters,#match .letters,#trace .letters{width:clamp(235px,20.5vw,300px)!important;overflow:hidden!important;align-content:flex-start;gap:2px;padding:6px}
+#learn .letters button,#match .letters button,#trace .letters button{min-height:0;height:clamp(26px,3.8dvh,37px);padding:1px;font-size:clamp(15px,1.65vw,21px);border-radius:8px}
+#learn .learnRowUnit{width:100%;gap:2px;flex-wrap:nowrap!important}
+#learn .learnRowUnit>.learnRowButton{min-width:44px!important;width:44px!important;flex-basis:44px!important;min-height:0!important;height:clamp(26px,3.8dvh,37px)!important;padding:0!important}
+#learn .learnCharChoices{flex-wrap:nowrap!important;gap:2px!important}
+#learn .learnCharChoices button{min-width:0!important;width:auto!important;flex:1 1 0!important;height:clamp(26px,3.8dvh,37px)!important;font-size:clamp(16px,1.5vw,21px)!important}
+#match .letters,#trace .letters{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));grid-auto-rows:min-content;align-content:start!important;justify-content:stretch!important}
+#match .letters button,#trace .letters button{width:100%!important}
+#match .letters label,#trace .letters label{grid-column:1/-1;writing-mode:horizontal-tb;white-space:normal;font-size:13px;line-height:1.2}
+#learn .layout{height:100%!important;grid-template-columns:minmax(0,1fr) clamp(100px,11vw,170px)!important}
+#learn .picture{max-height:calc(100dvh - 195px)}
+/* 説明・画像・選択肢の領域を分離 */
+#match,#trace,#pairs,#quiz,#words,#memory{min-height:0}
+#match .hint,#trace .hint,#pairs .hint,#words .hint,#quiz .hint{position:relative;z-index:2;background:#f9f6ef;margin:3px auto 6px;line-height:1.3;min-height:0}
+#matchBoard{height:min(56dvh,520px)!important;max-height:calc(100% - 125px)!important;margin:6px auto!important}
+#traceBoard{height:min(58dvh,520px)!important;max-height:calc(100% - 125px)!important;margin:4px auto!important}
+#pairs #pairInstruction{margin:2px auto 5px!important}
+#pairBoard{margin-top:6px!important;max-height:calc(100% - 125px);overflow:hidden}
+#quiz .hint{margin:3px auto 5px!important}
+#wordInstruction{margin:6px auto 4px!important;max-width:80%;line-height:1.3}
+#wordArtFrame{max-height:29dvh!important}#wordArt{max-height:28dvh!important}
+#memorySettings{overflow:hidden!important}
+
+/* v3.2: navigation and game viewport correction */
+#learn .layout{display:grid!important;grid-template-columns:minmax(0,1fr) clamp(124px,16vw,215px)!important;gap:10px!important;align-items:center!important;height:calc(100% - 90px)!important;min-height:0!important}
+#learn .layout>.picture{grid-column:1!important;grid-row:1!important;width:min(100%,calc(100dvh - 220px))!important;max-width:100%!important;height:auto!important;aspect-ratio:1!important;justify-self:center!important;align-self:center!important;overflow:hidden!important}
+#learn .layout>.controls{grid-column:2!important;grid-row:1!important;align-self:center!important;max-height:100%;overflow:hidden;gap:5px!important}
+#learn .controls button{min-height:clamp(38px,6dvh,56px)!important;padding:3px!important}
+#learn .controls button svg{width:clamp(25px,4.2dvh,38px)!important;height:clamp(25px,4.2dvh,38px)!important}
+#learn .letters{bottom:4px!important;top:4px!important}
+#learn .nav{margin:2px 0 0!important}
+#learn .hint{margin:2px 0!important}
+/* keep instructions, cards and buttons visible inside one landscape viewport */
+#pairs{justify-content:flex-start!important;gap:clamp(2px,.6dvh,6px)!important;padding-top:2px!important}
+#pairs .pairSettings{flex:none;min-height:0;gap:5px!important}
+#pairs #pairBoard{flex:1 1 auto!important;min-height:0!important;max-height:none!important;margin:1px auto!important;gap:clamp(5px,1dvh,10px)!important;align-content:center!important}
+#pairs .pairRow{gap:clamp(5px,1dvh,10px)!important;min-height:0!important;justify-items:center}
+#pairs .pairCard{height:min(20dvh,160px)!important;width:min(20dvh,160px)!important;max-height:100%!important;aspect-ratio:1!important}
+#pairs .hint,#pairStatus{font-size:clamp(13px,2dvh,18px)!important;margin:2px 0!important;flex:none}
+#quiz{justify-content:flex-start!important;gap:clamp(2px,.7dvh,7px)!important;padding:2px 0!important}
+#quiz #hintpic{width:min(20dvh,175px)!important;max-height:20dvh!important}
+#quiz .quizoptions{gap:clamp(5px,1dvh,11px)!important;margin:1px 0!important;max-width:720px!important}
+#quiz .quizoptions button{width:min(16dvh,115px)!important;height:min(16dvh,115px)!important;aspect-ratio:1!important}
+#quiz .result{height:clamp(20px,3dvh,30px)!important;min-height:0!important;font-size:18px!important}
+#words{justify-content:flex-start!important;gap:clamp(2px,.6dvh,6px)!important;padding-top:3px!important;padding-bottom:4px!important}
+#wordGame{gap:clamp(3px,.8dvh,9px)!important;min-height:0!important}
+#wordArtFrame{width:min(22dvh,160px)!important;max-height:22dvh!important}
+#wordArt{max-height:21dvh!important}
+#words .wordSlot{width:min(17dvh,105px)!important;height:min(17dvh,105px)!important}
+#words .wordTile{width:min(12dvh,80px)!important;height:min(12dvh,80px)!important}
+#words .wordControls button{min-height:clamp(33px,5dvh,44px)!important;padding:2px 8px!important}
+#words .wordControls button svg{height:25px!important;width:25px!important}
+#words #wordResult{min-height:18px!important;font-size:18px!important}
+#words #wordHintRow img{height:min(7dvh,50px)!important;width:min(7dvh,50px)!important}
+#words #wordInstruction{margin:0 auto!important;font-size:clamp(13px,2.3dvh,18px)!important}
+@media(max-height:650px){
+#learn .layout{height:calc(100% - 72px)!important}
+#learn .layout>.picture{width:min(100%,calc(100dvh - 190px))!important}
+#pairs .pairCard{width:min(18dvh,126px)!important;height:min(18dvh,126px)!important}
+#quiz .quizoptions button{width:min(14dvh,95px)!important;height:min(14dvh,95px)!important}
+#wordArtFrame{width:18dvh!important;max-height:18dvh!important}
+}
+</style><header><div><h1>ひらがな あそび</h1><small>46文字　絵と文字でおぼえよう</small><div id="topUtilities"><label class="voiceChooser" for="voiceChoice">こえ <select aria-label="読み上げの声" id="voiceChoice"><option value="female">女声6</option><option value="male">男声3</option></select></label><button aria-label="今日使う文字を選ぶ" id="letterSettings" title="今日使う文字">きょうのもじ</button><button id="homeTop">⌂ ホーム</button></div></div><nav><button id="puzzleTab" type="button">🧩 ひらがなパズル</button><button aria-label="おぼえる" class="on" id="learnTab" title="おぼえる"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><rect height="44" rx="6" width="52" x="6" y="10"></rect><circle cx="21" cy="23" r="5"></circle><path d="M9 47 25 32 35 41 45 29 56 43"></path></svg><span class="tabLabel">おぼえる</span></button> <button aria-label="きく" id="quizTab" title="きく"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><circle cx="32" cy="32" r="24"></circle><path d="M23 23q2-13 15-9 13 7 0 17l-6 4v6"></path><circle cx="32" cy="49" r="1"></circle></svg><span class="tabLabel">きく</span></button><button aria-label="ぴったり重ねる遊び" id="matchTab" title="ぴったり重ねる"><svg aria-hidden="true" viewbox="0 0 64 64"><rect height="35" opacity=".5" rx="5" width="31" x="6" y="10"></rect><rect height="35" rx="5" width="32" x="25" y="23"></rect><path d="m15 27 7 7 12-14"></path></svg><span class="tabLabel">ぴったり</span></button><button aria-label="絵と文字のペア探し" id="pairsTab" title="ペア探し"><svg aria-hidden="true" viewbox="0 0 64 64"><rect height="38" rx="5" width="23" x="3" y="12"></rect><rect height="38" rx="5" width="23" x="38" y="12"></rect><path d="m8 40 6-11 8 11M26 31h12"></path><text fill="currentColor" font-size="21" stroke="none" text-anchor="middle" x="49" y="39">あ</text></svg><span class="tabLabel">えともじ</span></button><button aria-label="文字をなぞる" id="traceTab" title="なぞる"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="m17 45 26-29 9 9-27 29-12 3zM39 20l9 9M7 18q13-12 20-5M8 28q9-10 17-8"></path></svg><span class="tabLabel">なぞる</span></button><button aria-label="ことばづくり" id="wordsTab" title="ことばづくり"><svg aria-hidden="true" viewbox="0 0 64 64"><rect height="25" rx="3" width="18" x="2" y="22"></rect><rect height="25" rx="3" width="18" x="23" y="22"></rect><rect height="25" rx="3" width="18" x="44" y="22"></rect><path d="M9 13h45m-9-7 9 7-9 7"></path></svg><span class="tabLabel">ことばづくり</span></button><button aria-label="メモリーゲーム" id="memoryTab" title="メモリーゲーム"><svg aria-hidden="true" viewbox="0 0 64 64"><rect height="38" rx="5" width="27" x="6" y="15"></rect><rect height="38" rx="5" width="27" x="31" y="8"></rect><path d="m16 29 7 7-7 7M40 22h9M40 31h9"></path></svg><span class="tabLabel">メモリーゲーム</span></button></nav></header><dialog id="letterDialog"><h2>今日使う文字</h2><p>使う文字を２つ以上えらぼう</p><div id="letterGrid"></div><p aria-live="polite" id="letterSelectionStatus"></p><div class="letterActions"><button id="selectAllLetters">全部</button><button id="clearLetters">全部はずす</button><button aria-label="閉じる" id="closeLetters">✕ <span>閉じる</span></button><button aria-label="選んだ文字で遊ぶ" class="primary" id="applyLetters" title="選んだ文字で遊ぶ"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="m12 33 14 14 28-30"></path></svg><span>決定</span></button></div></dialog><main><section id="homeScreen" aria-label="ひらがな あそび ホーム画面"><div id="homeCanvas"><img id="homeDesign" src="assets/home-design.png" alt="ひらがな あそび：8つのゲームをえらぼう" draggable="false"/><button class="homeHotspot homeVoice" id="homeVoice" aria-label="こえを選ぶ" title="こえを選ぶ"></button><div id="homeVoiceMenu" hidden role="group" aria-label="声を選ぶ"><strong>こえを えらぼう</strong><button type="button" data-voice="female" aria-pressed="false">女声6</button><button type="button" data-voice="male" aria-pressed="false">男声3</button><button type="button" id="closeHomeVoice">とじる</button></div><button class="homeHotspot homeLetters" id="homeLetters" aria-label="きょうのもじを選ぶ" title="きょうのもじ"></button><button class="homeHotspot homeReturn" id="homeReturn" aria-label="ホーム" title="ホーム"></button><button class="homeHotspot cardHotspot" data-game="puzzle" aria-label="ひらがなパズル" title="ひらがなパズル" style="--c:0;--r:0"><span>ひらがなパズル</span></button><button class="homeHotspot cardHotspot" data-game="learn" aria-label="おぼえる" title="おぼえる" style="--c:1;--r:0"><span>おぼえる</span></button><button class="homeHotspot cardHotspot" data-game="quiz" aria-label="きく" title="きく" style="--c:2;--r:0"><span>きく</span></button><button class="homeHotspot cardHotspot" data-game="match" aria-label="ぴったり" title="ぴったり" style="--c:3;--r:0"><span>ぴったり</span></button><button class="homeHotspot cardHotspot" data-game="pairs" aria-label="えともじ" title="えともじ" style="--c:0;--r:1"><span>えともじ</span></button><button class="homeHotspot cardHotspot" data-game="trace" aria-label="なぞる" title="なぞる" style="--c:1;--r:1"><span>なぞる</span></button><button class="homeHotspot cardHotspot" data-game="words" aria-label="ことばづくり" title="ことばづくり" style="--c:2;--r:1"><span>ことばづくり</span></button><button class="homeHotspot cardHotspot" data-game="memory" aria-label="メモリーゲーム" title="メモリーゲーム" style="--c:3;--r:1"><span>メモリーゲーム</span></button></div></section><section hidden="" id="puzzlePanel"><iframe id="puzzleFrame" src="puzzle/index.html" title="ひらがな分解パズル"></iframe></section>
+<section id="learn"><div class="letters" id="letters"></div><div class="layout"><div class="picture"><img alt="" id="art"/><img alt="" id="glyph"/></div><div class="controls"><button aria-label="絵だけ" data-mode="art" title="絵だけ"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><rect height="44" rx="6" width="52" x="6" y="10"></rect><circle cx="21" cy="23" r="5"></circle><path d="M9 47 25 32 35 41 45 29 56 43"></path></svg></button><button aria-label="絵と文字" class="on" data-mode="combined" title="絵と文字"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><g opacity=".45"><rect height="44" rx="6" width="52" x="6" y="10"></rect><circle cx="21" cy="23" r="5"></circle><path d="M9 47 25 32 35 41 45 29 56 43"></path></g><text fill="currentColor" font-size="47" stroke="none" text-anchor="middle" x="32" y="48">あ</text></svg></button><button aria-label="文字だけ" data-mode="glyph" title="文字だけ"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><text fill="currentColor" font-size="47" stroke="none" text-anchor="middle" x="32" y="48">あ</text></svg></button><button aria-label="絵から文字がだんだん現れる" id="appear" title="絵から文字がだんだん現れる"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><rect height="31" rx="4" width="22" x="5" y="16"></rect><path d="m7 43 8-11 10 9M27 32h11m-7-7 7 7-7 7"></path><text fill="currentColor" font-size="30" stroke="none" text-anchor="middle" x="50" y="44">あ</text><path d="m45 10 2-5m9 10 5-3"></path></svg></button><button aria-label="文字から絵が現れ、読める濃さで文字が残る" id="toArt" title="文字から絵へ"><svg aria-hidden="true" viewbox="0 0 64 64"><text fill="currentColor" font-size="28" opacity=".45" stroke="none" text-anchor="middle" x="13" y="41">あ</text><path d="M25 32h12m-6-6 6 6-6 6"></path><rect height="33" rx="4" width="21" x="40" y="15"></rect><circle cx="47" cy="24" r="3"></circle><path d="m42 42 7-9 10 10"></path></svg></button><button aria-label="絵がだんだん消えて文字が残る" id="fade" title="絵がだんだん消えて文字が残る"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><path d="M7 18h14M7 30h10M7 42h6" opacity=".45"></path><path d="M20 32h16M28 24l8 8-8 8"></path><text fill="currentColor" font-size="32" stroke="none" text-anchor="middle" x="48" y="44">あ</text></svg></button><button aria-label="音を聞く" class="audioButton" id="speak" title="音を聞く"><svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" class="volumeIcon"><path d="M9 25h12l15-12v38L21 39H9z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43 23c5 5 5 13 0 18M49 15c10 10 10 24 0 34" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/></svg></button><label>声の速さ <select id="rate"><option value="0.75">ゆっくり</option><option selected="" value="1">ふつう</option></select></label></div></div><p class="hint" id="word"></p><div class="nav"><button aria-label="前の文字" id="prev" title="前の文字"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><g transform="rotate(180 32 32)"><path d="M15 32h34M37 20l12 12-12 12"></path></g></svg></button><button aria-label="次の文字" id="next" title="次の文字"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><path d="M15 32h34M37 20l12 12-12 12"></path></svg></button></div></section>
+<section hidden="" id="quiz"><aside class="quizRight"><label class="quizsettings">選ぶ文字の数 <select id="choiceCount"><option value="2">2</option><option selected="" value="3">3</option><option value="4">4</option><option value="5">5</option></select></label><div style="text-align:center"><button aria-label="もう一度聞く" class="audioButton" id="qSound" title="もう一度聞く"><svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" class="volumeIcon"><path d="M9 25h12l15-12v38L21 39H9z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43 23c5 5 5 13 0 18M49 15c10 10 10 24 0 34" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/></svg></button> <button aria-label="絵のヒント" id="qHint" title="絵のヒント"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><rect height="44" rx="6" width="52" x="6" y="10"></rect><circle cx="21" cy="23" r="5"></circle><path d="M9 47 25 32 35 41 45 29 56 43"></path></svg></button></div></aside><div aria-label="音声クイズの絵の表示設定" class="quizModeChooser" id="quizModeChooser" role="group"><p>はじめに絵の表示をえらぼう</p><div class="quizModeChoices"><button id="quizWithImage" type="button">絵あり</button><button id="quizWithoutImage" type="button">絵なし</button></div></div><button aria-label="クイズをスタート" class="primary" hidden="" id="qStart" title="スタート"><svg aria-hidden="true" viewbox="0 0 64 64"><circle cx="32" cy="32" r="27"></circle><path d="m26 19 19 13-19 13z" fill="currentColor" stroke="none"></path></svg></button><p class="hint">音を聞いて、文字をえらぼう</p><div class="picture" hidden="" id="hintpic" style="height:30vh"><img alt="絵のヒント" id="hintart"/></div><div class="quizoptions" id="options"></div><div aria-live="polite" class="result" id="result"></div><div style="text-align:center"><button aria-label="次の問題" hidden="" id="qNext" title="次の問題"><svg aria-hidden="true" focusable="false" viewbox="0 0 64 64"><path d="M15 32h34M37 20l12 12-12 12"></path></svg></button><button id="quizSkip">スキップ ▶</button></div></section><section hidden="" id="match"><div class="letters" id="matchLetters"></div><p class="hint" id="matchInstruction">文字をうごかして、絵にかさねよう</p><label class="correctReadSetting"><input checked="" class="correctReadToggle" type="checkbox"/> 正解で読み上げる</label><div id="matchBoard"><img alt="" id="matchArt"/><img alt="" hidden="" id="matchGuide"/><img alt="" aria-label="文字を指で動かして重ねる" draggable="false" id="matchPiece" role="button" tabindex="0"/><svg aria-hidden="true" hidden="" id="matchCircle" viewbox="0 0 100 100"><circle cx="50" cy="50" r="43"></circle></svg></div><div class="matchControls"><button aria-label="前の文字" id="matchPrev" title="前の文字"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M49 32H15m12-12L15 32l12 12"></path></svg></button><button aria-label="薄い文字のヒント" aria-pressed="false" id="matchHint" title="ヒント"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M5 32q27-35 54 0Q32 67 5 32z"></path><circle cx="32" cy="32" r="9"></circle></svg></button><button aria-label="もう一度" id="matchReset" title="もう一度"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M14 20a23 23 0 1 1-4 22M14 7v15H29"></path></svg></button><button aria-label="文字とことばを聞く" class="audioButton" id="matchSound" title="音を聞く"><svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" class="volumeIcon"><path d="M9 25h12l15-12v38L21 39H9z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43 23c5 5 5 13 0 18M49 15c10 10 10 24 0 34" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/></svg></button><button aria-label="次の文字" id="matchNext" title="次の文字"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M15 32h34M37 20l12 12-12 12"></path></svg></button></div></section><section hidden="" id="pairs"><aside class="pairsRight"><label class="pairSettings">ペアの数 <select id="pairCount"><option value="2">2</option><option selected="" value="3">3</option><option value="4">4</option><option value="5">5</option></select></label><label class="correctReadSetting"><input checked="" class="correctReadToggle" type="checkbox"/> 正解で読み上げる</label></aside><p class="hint" id="pairInstruction">絵をうごかして、文字にくっつけよう</p><div id="pairBoard"><div aria-label="絵カード" class="pairRow" id="pairArts" role="group"></div><div aria-label="文字カード" class="pairRow" id="pairGlyphs" role="group"></div></div><p aria-live="polite" id="pairStatus"></p><button aria-label="もう一度ペア探し" id="pairReset" title="もう一度"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M14 20a23 23 0 1 1-4 22M14 7v15H29"></path></svg></button></section><section hidden="" id="trace"><div class="letters" id="traceLetters"></div><p class="hint">指で文字をなぞろう</p><div id="traceBoard"><img alt="" id="traceArt"/><img alt="" id="traceGlyph"/><canvas aria-label="指で文字をなぞる場所" height="1000" id="traceCanvas" width="1000"></canvas></div><div class="traceControls"><button aria-label="絵を表示する・消す" id="traceArtToggle" title="絵を表示する・消す"><svg aria-hidden="true" viewbox="0 0 64 64"><rect height="44" rx="6" width="52" x="6" y="10"></rect><circle cx="21" cy="23" r="5"></circle><path d="M9 47 25 32 35 41 45 29 56 43"></path></svg></button><button aria-label="薄い文字を表示する・消す" id="traceGlyphToggle" title="薄い文字を表示する・消す"><svg aria-hidden="true" viewbox="0 0 64 64"><text fill="currentColor" font-size="47" stroke="none" text-anchor="middle" x="32" y="48">あ</text></svg></button><button aria-label="ひとつ戻す" id="traceUndo" title="ひとつ戻す"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M21 16 7 29l14 13M8 29h28q23 0 20 22"></path></svg></button><button aria-label="なぞった線を消す" id="traceClear" title="なぞった線を消す"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M12 17h40M23 17V9h18v8M17 17l4 39h22l4-39M27 26v21M37 26v21"></path></svg></button><button aria-label="文字とことばを聞く" class="audioButton" id="traceSound" title="文字とことばを聞く"><svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" class="volumeIcon"><path d="M9 25h12l15-12v38L21 39H9z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43 23c5 5 5 13 0 18M49 15c10 10 10 24 0 34" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/></svg></button></div><div class="traceNav"><button aria-label="前の文字" id="tracePrev" title="前の文字"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M49 32H15m12-12L15 32l12 12"></path></svg></button><button aria-label="次の文字" id="traceNext" title="次の文字"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M15 32h34M37 20l12 12-12 12"></path></svg></button></div></section><section hidden="" id="words"><div id="wordSide"><label class="quizsettings">文字数 <select id="wordLength"><option selected="" value="2">２文字</option><option value="3">３文字</option><option value="4">４文字</option></select><span id="wordProgress"></span></label><label>もんだいのかず<select id="wordCount"><option value="5">5もん</option><option value="10">10もん</option><option value="20">20もん</option><option value="all">ぜんぶ</option></select></label><label>レベル<select id="wordLevel"><option value="easy">やさしい</option><option value="challenge">チャレンジ</option></select></label></div><p class="hint" id="wordInstruction">音を聞いて、ことばをつくろう</p><button aria-label="ことばづくりをスタート" class="primary" id="wordStart" title="ことばづくりをスタート"><svg aria-hidden="true" viewbox="0 0 64 64"><circle cx="32" cy="32" r="27"></circle><path d="m26 19 19 13-19 13z" fill="currentColor" stroke="none"></path></svg></button><div hidden="" id="wordGame"><div aria-label="ことばの絵を表示する枠" id="wordArtFrame"><img alt="" hidden="" id="wordArt"/></div><div aria-label="ことばのヒント" hidden="" id="wordHintRow"></div><div aria-label="文字を並べる場所" id="wordSlots" role="group"></div><div aria-label="文字カード" id="wordBank" role="group"></div><p aria-live="polite" id="wordResult"></p><div class="wordControls"><button aria-label="ことばを聞く" class="audioButton" id="wordSound" title="ことばを聞く"><svg aria-hidden="true" focusable="false" viewBox="0 0 64 64" class="volumeIcon"><path d="M9 25h12l15-12v38L21 39H9z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43 23c5 5 5 13 0 18M49 15c10 10 10 24 0 34" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/></svg></button><button aria-label="ことばをゆっくり聞く" id="wordSlow" title="ことばをゆっくり聞く" type="button">ゆっくり</button><button aria-label="文字のヒント" id="wordHint" title="文字のヒント"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M5 32q27-35 54 0Q32 67 5 32z"></path><circle cx="32" cy="32" r="9"></circle></svg></button><button aria-label="並べ直す" id="wordReset" title="並べ直す"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M14 20a23 23 0 1 1-4 22M14 7v15H29"></path></svg></button><button aria-label="答え合わせ" disabled="" id="wordCheck" title="答え合わせ"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="m12 33 14 14 28-30"></path></svg></button><button aria-label="次のことば" hidden="" id="wordNext" title="次のことば"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M15 32h34M37 20l12 12-12 12"></path></svg></button></div></div><button id="wordSkip">スキップ ▶</button></section><section hidden="" id="memory"><div id="memorySettings"><label>合わせるもの <select id="memoryKind"><option value="glyph">ひらがな同士</option><option value="art">イラスト同士</option><option selected="" value="mixed">ひらがなとイラスト</option></select></label><label>枚数 <select id="memoryCount"><option value="4">４枚</option><option selected="" value="6">６枚</option><option value="8">８枚</option><option value="10">10枚</option></select></label><label>人数 <select id="memoryPlayers"><option value="1">１人</option><option value="2">２人</option></select></label><label class="correctReadSetting"><input checked="" class="correctReadToggle" type="checkbox"/> 正解で読み上げる</label></div><p aria-live="polite" id="memoryScore"></p><div aria-label="メモリーゲームのカード" id="memoryBoard" role="group"></div><p aria-live="polite" id="memoryStatus"></p><button aria-label="メモリーゲームをやり直す" id="memoryReset" title="やり直す"><svg aria-hidden="true" viewbox="0 0 64 64"><path d="M14 20a23 23 0 1 1-4 22M14 7v15H29"></path></svg></button></section><p class="footer" id="audioNote">録音音声：女声6</p></main><script src="data.js"></script><script src="match-data.js"></script><script src="word-data.js"></script><script src="word-images.js"></script><script src="audio-map.js"></script><script src="app.js"></script><script src="memory.js"></script><script src="selection.js"></script></html>
+<script>
+// 8-game integrated navigation (retains both original game engines)
+(function(){
+ const ids=['learn','quiz','match','pairs','trace','words','memory'];
+ const home=document.getElementById('homeScreen'),puzzle=document.getElementById('puzzlePanel');
+ const tabs=ids.map(k=>document.getElementById(k+'Tab'));
+ function choose(name){
+  if(name==='home'||name==='puzzle'){
+    ids.forEach(id=>{document.getElementById(id).hidden=true;document.getElementById(id+'Tab').classList.remove('on')});
+    home.hidden=name!=='home';puzzle.hidden=name!=='puzzle';
+    document.getElementById('puzzleTab').classList.toggle('on',name==='puzzle');
+  }else{
+    home.hidden=true;puzzle.hidden=true;document.getElementById('puzzleTab').classList.remove('on');
+    showPanel(name);
+  }
+ }
+ // Every top navigation button uses the same entrance-aware router.
+ for (const id of ids) {
+   const tab=document.getElementById(id+'Tab');
+   tab.onclick=()=>choose(id);
+ }
+ document.getElementById('homeTop').onclick=()=>choose('home');
+ document.getElementById('homeReturn').onclick=()=>choose('home');
+ document.getElementById('homeLetters').onclick=()=>document.getElementById('letterSettings').click();
+ const homeVoiceButton=document.getElementById('homeVoice');
+ const homeVoiceMenu=document.getElementById('homeVoiceMenu');
+ const voiceSelect=document.getElementById('voiceChoice');
+ function updateHomeVoiceMenu(){homeVoiceMenu.querySelectorAll('[data-voice]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.voice===voiceSelect.value)));}
+ homeVoiceButton.setAttribute('aria-expanded','false');
+ homeVoiceButton.setAttribute('aria-controls','homeVoiceMenu');
+ homeVoiceButton.onclick=()=>{const opening=homeVoiceMenu.hidden;homeVoiceMenu.hidden=!opening;homeVoiceButton.setAttribute('aria-expanded',String(opening));if(opening)updateHomeVoiceMenu();};
+ homeVoiceMenu.querySelectorAll('[data-voice]').forEach(button=>button.onclick=()=>{voiceSelect.value=button.dataset.voice;voiceSelect.dispatchEvent(new Event('change',{bubbles:true}));updateHomeVoiceMenu();homeVoiceMenu.hidden=true;homeVoiceButton.setAttribute('aria-expanded','false');});
+ document.getElementById('closeHomeVoice').onclick=()=>{homeVoiceMenu.hidden=true;homeVoiceButton.setAttribute('aria-expanded','false');homeVoiceButton.focus();};
+ document.getElementById('puzzleTab').onclick=()=>choose('puzzle');
+ document.querySelectorAll('[data-game]').forEach(b=>b.onclick=()=>choose(b.dataset.game));
+ // Let the first screen always be the game-selection entrance
+ choose('home');
+ document.getElementById('quizSkip').onclick=()=>{if(document.getElementById('quizModeChooser').hidden && !document.getElementById('qStart').hidden){document.getElementById('qStart').click();return;}if(typeof newQuestion==='function'&&typeof quizImageMode!=='undefined'&&quizImageMode!==null)newQuestion();};
+ const count=document.getElementById('wordCount'),level=document.getElementById('wordLevel');
+ window.wordSessionCap=5;window.wordLevelSelection='easy';
+ function setWordSettings(){window.wordSessionCap=count.value==='all'?Infinity:Number(count.value);window.wordLevelSelection=level.value;document.getElementById('wordLength').dispatchEvent(new Event('change'));}
+ count.addEventListener('change',setWordSettings);level.addEventListener('change',setWordSettings);
+ document.getElementById('wordSkip').onclick=()=>{if(!document.getElementById('wordStart').hidden){document.getElementById('wordStart').click();return;}if(typeof wordIndex!=='undefined'&&wordList.length){wordIndex=(wordIndex+1)%Math.min(wordList.length,window.wordSessionCap);startWord();}};
+})();
+</script>
